@@ -1,4 +1,5 @@
 #include "GraphicsEngine.h"
+#include "../Utilities/Camera.h"
 
 CGraphicsEngine::CGraphicsEngine()
 {
@@ -31,6 +32,9 @@ bool CGraphicsEngine::Init(const CWindowHandler::SWindowData & aWindowData)
 		return false;
 	}
 
+	CConstantBuffer::SetFramework(&myFramework);
+	CCamera::GetInstance().Init(&myFramework);
+
 	return true;
 }
 
@@ -44,6 +48,8 @@ bool CGraphicsEngine::BeginFrame()
 
 bool CGraphicsEngine::RenderFrame()
 {
+	CCamera::GetInstance().Update();
+
 	//myScene.Cull();
 
 	mySpriteRenderer.Render(myScene.GetSpriteBuffer());

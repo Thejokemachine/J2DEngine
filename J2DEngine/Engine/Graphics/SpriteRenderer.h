@@ -12,6 +12,8 @@ struct ID3D11VertexShader;
 struct ID3D11Buffer;
 struct ID3D11InputLayout;
 
+struct SSpriteRenderCommand;
+
 class CDirectXFramework;
 class CSprite;
 
@@ -22,7 +24,7 @@ public:
 	~CSpriteRenderer();
 
 	bool Init(CDirectXFramework* aFramework);
-	void Render(std::vector<CSprite*>& aSpritesToRender);
+	void Render(std::vector<SSpriteRenderCommand>& aSpritesToRender);
 
 private:
 

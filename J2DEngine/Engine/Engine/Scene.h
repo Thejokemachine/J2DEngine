@@ -1,6 +1,7 @@
 #pragma once
 #include "Base.h"
 #include <vector>
+#include "../Graphics/RenderCommands.h"
 
 class CSprite;
 
@@ -13,13 +14,13 @@ public:
 	bool Init();
 	void SetSpriteBufferSize(unsigned int aSize);
 	bool AddSprite(CSprite* aSprite);
-	std::vector<CSprite*>& GetSpriteBuffer();
+	std::vector<SSpriteRenderCommand>& GetSpriteBuffer();
 	void Clear();
 
 	//void Cull();
 
 private:
-	std::vector<CSprite*> mySpriteBuffer;
+	std::vector<SSpriteRenderCommand> mySpriteBuffer;
 	unsigned int myAvailableIndex;
 };
 

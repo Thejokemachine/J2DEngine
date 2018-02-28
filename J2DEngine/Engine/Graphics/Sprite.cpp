@@ -57,6 +57,11 @@ SUVRect CSprite::GetTextureRect()
 	return myTextureRect;
 }
 
+CTexture CSprite::GetTexture()
+{
+	return myTexture;
+}
+
 void CSprite::SetShader(const CShader & aShader)
 {
 	myShader = &aShader;

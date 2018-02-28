@@ -39,7 +39,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _
 		DL_WRITELOG("engine", "Console Initiated.");
 
 		game.Init();
-		timer.Init();
+		CTime::GetInstance().Init();
 		CInputManager::GetInstance().Init(graphicsEngine.GetClientWindow());
 	}
 
@@ -64,7 +64,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		graphicsEngine.BeginFrame();
 
-		timer.Update();
+		CTime::GetInstance().Update();
 		game.Update(timer.GetDeltaTime());
 		game.Render();
 

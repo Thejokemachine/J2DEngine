@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Graphics/Sprite.h"
 #include "Graphics/Texture.h"
+#include "RenderCommands.h"
 
 CSpriteRenderer::CSpriteRenderer()
 {
@@ -80,7 +81,7 @@ bool CSpriteRenderer::Init(CDirectXFramework * aFramework)
 	return true;
 }
 
-void CSpriteRenderer::Render(std::vector<CSprite*>& aSpritesToRender)
+void CSpriteRenderer::Render(std::vector<SSpriteRenderCommand>& aSpritesToRender)
 {
 	ID3D11DeviceContext* context = myFramework->GetContext();
 
@@ -100,18 +101,15 @@ void CSpriteRenderer::Render(std::vector<CSprite*>& aSpritesToRender)
 	//context->GSSetShader(myDefaultShader.GetGeometryShader(), nullptr, 0);
 	//context->PSSetShader(myDefaultShader.GetPixelShader(), nullptr, 0);
 
-	for (CSprite* sprite : aSpritesToRender)
+	for (SSpriteRenderCommand& sprite : aSpritesToRender)
 	{
-		if (sprite == nullptr)
-			break;
-
 		SSprite rc;
-		rc.position = sprite->GetPosition();
-		rc.color = sprite->GetColor();
-		rc.dimensions = { sprite->GetDimensions().x, sprite->GetDimensions().y };
-		rc.rotation = sprite->GetRotation();
-		rc.textureRect = { sprite->GetTextureRect().topLeft , sprite->GetTextureRect().bottomRight };
-		rc.scale = { sprite->GetScale().x, sprite->GetScale().y };
+		rc.position = sprite.position;
+		rc.color = sprite.color;
+		rc.dimensions = { sprite.dimensions.x, sprite.dimensions.y };
+		rc.rotation = sprite.rotation;
+		rc.textureRect = { sprite.textureRect.topLeft , sprite.textureRect.bottomRight };
+		rc.scale = { sprite.scale.x, sprite.scale.y };
 
 		D3D11_MAPPED_SUBRESOURCE resource = { 0 };
 		result = context->Map(myBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
@@ -119,7 +117,7 @@ void CSpriteRenderer::Render(std::vector<CSprite*>& aSpritesToRender)
 		memcpy(resource.pData, &rc, sizeof(SSprite));
 		context->Unmap(myBuffer, 0);
 
-		context->PSSetShaderResources(0, 1, &sprite->myTexture.myTexture);
+		context->PSSetShaderResources(0, 1, &sprite.texture.myTexture);
 
 		context->Draw(1, 0);
 	}

@@ -1,15 +1,9 @@
 #pragma once
 #include "Base.h"
 #include <map>;
+#include "ShaderTypes.h"
 
 class CShader;
-
-enum class EShaderType
-{
-	VertexShader,
-	GeometryShader,
-	PixelShader
-};
 
 class CShaderCompiler : public CBase
 {

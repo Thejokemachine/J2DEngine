@@ -9,6 +9,9 @@ struct ID3D11DeviceContext;
 struct ID3D11RenderTargetView;
 struct ID3D11RasterizerState;
 
+#define CAMERA_SLOT 0
+#define TIME_SLOT 1
+
 class CDirectXFramework : CBase
 {
 public:

@@ -118,6 +118,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Utilities\ConstantBuffer.cpp" />
+    <ClCompile Include="Utilities\Camera.cpp" />
     <ClCompile Include="Engine\DirectXFramework.cpp" />
     <ClCompile Include="Engine\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\DDSTextureLoader\DDSTextureLoader.cpp" />
@@ -137,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Engine\ShaderTypes.h" />
+    <ClInclude Include="Utilities\ConstantBuffer.h" />
+    <ClInclude Include="Utilities\Camera.h" />
     <ClInclude Include="Engine\DirectXFramework.h" />
     <ClInclude Include="Engine\GraphicsEngine.h" />
     <ClInclude Include="Graphics\DDSTextureLoader\dds.h" />
@@ -146,6 +151,7 @@
     <ClInclude Include="Graphics\DDSTextureLoader\pch.h" />
     <ClInclude Include="Graphics\DDSTextureLoader\PlatformHelpers.h" />
     <ClInclude Include="Graphics\Colors.h" />
+    <ClInclude Include="Graphics\RenderCommands.h" />
     <ClInclude Include="Graphics\ShaderWrappers.h" />
     <ClInclude Include="Graphics\Sprite.h" />
     <ClInclude Include="Graphics\Texture.h" />
@@ -186,6 +192,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="constantBuffers.hlsli" />
     <None Include="shaderStructs.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+*.pdb
+*.pdb
+*.idb
+*.cache
+*.tlog
+J2DEngine/Launcher/x64/Debug/Launcher.tlog/Launcher.lastbuildstate
+*.lastbuildstate
+*.log

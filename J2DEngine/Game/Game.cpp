@@ -2,6 +2,7 @@
 #include "Graphics/Colors.h"
 #include "Utilities/InputManager.h"
 #include "Utilities/Time.h"
+#include "Utilities/DebugLog.h"
 
 void CGame::Init()
 {

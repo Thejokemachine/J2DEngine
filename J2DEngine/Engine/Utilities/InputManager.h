@@ -22,6 +22,7 @@ public:
 	bool IsKeyDown(EKeyCode aKey);
 
 	CVector2f GetCursorPosition();
+	int GetScrollWheelDelta();
 
 private:
 	CInputManager();
@@ -30,6 +31,7 @@ private:
 	std::map<EKeyCode, EKeyState> myPreviousKeyStates;
 
 	CVector2f myCursorPosition;
+	float myWheelDelta;
 
 	HWND myHWND;
 };

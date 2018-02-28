@@ -16,43 +16,40 @@ bool CScene::Init()
 	CSprite::SetScene(this);
 
 	// Make Limits.h or something with limits
-	SetSpriteBufferSize(5000);
+	//SetSpriteBufferSize(5000);
 
 	return true;
 }
 
 void CScene::SetSpriteBufferSize(unsigned int aSize)
 {
-	mySpriteBuffer.resize(aSize);
 	mySpriteBuffer.clear();
-
-	for (int i = 0; i < aSize; ++i)
-	{
-		mySpriteBuffer.push_back(nullptr);
-	}
-	myAvailableIndex = 0;
+	mySpriteBuffer.resize(aSize);
 }
 
 bool CScene::AddSprite(CSprite * aSprite)
 {
-	if (myAvailableIndex < mySpriteBuffer.size())
-	{
-		mySpriteBuffer[myAvailableIndex++] = aSprite;
-	}
+	SSpriteRenderCommand rc;
+
+	rc.color = aSprite->GetColor();
+	rc.dimensions = aSprite->GetDimensions();
+	rc.position = aSprite->GetPosition();
+	rc.rotation = aSprite->GetRotation();
+	rc.scale = aSprite->GetScale();
+	rc.texture = aSprite->GetTexture();
+	rc.textureRect = aSprite->GetTextureRect();
+
+	mySpriteBuffer.push_back(rc);
 
 	return true;
 }
 
-std::vector<CSprite*>& CScene::GetSpriteBuffer()
+std::vector<SSpriteRenderCommand>& CScene::GetSpriteBuffer()
 {
 	return mySpriteBuffer;
 }
 
 void CScene::Clear()
 {
-	for (CSprite* sprite : mySpriteBuffer)
-	{
-		sprite = nullptr;
-	}
-	myAvailableIndex = 0;
+	mySpriteBuffer.clear();
 }

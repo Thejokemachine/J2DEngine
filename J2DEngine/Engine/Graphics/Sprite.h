@@ -12,8 +12,6 @@ class CShader;
 class CSprite : public CBase, public CTransform
 {
 
-	friend class CSpriteRenderer;
-
 public:
 	CSprite();
 	~CSprite();
@@ -28,6 +26,8 @@ public:
 
 	void SetTextureRect(const CVector2f& aTopLeft, const CVector2f& aBottomRight);
 	SUVRect GetTextureRect();
+
+	CTexture GetTexture();
 
 	void SetShader(const CShader& aShader);
 

@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include "Utilities/DebugLog.h"
 
 CInputManager::CInputManager()
 {
@@ -114,11 +115,17 @@ void CInputManager::UpdateMouse(const MSG & aWindowsMessage)
 
 	myCursorPosition.x = point.x;
 	myCursorPosition.y = point.y;
+
+	if (aWindowsMessage.message == WM_MOUSEWHEEL)
+	{
+		myWheelDelta = static_cast<float>(GET_WHEEL_DELTA_WPARAM(aWindowsMessage.wParam)) / static_cast<float>(WHEEL_DELTA);
+	}
 }
 
 void CInputManager::OncePerFrameUpdate()
 {
 	myPreviousKeyStates = myKeyStates;
+	myWheelDelta = 0.0f;
 }
 
 bool CInputManager::IsKeyPressed(EKeyCode aKey)
@@ -134,4 +141,9 @@ bool CInputManager::IsKeyDown(EKeyCode aKey)
 CVector2f CInputManager::GetCursorPosition()
 {
 	return myCursorPosition;
+}
+
+int CInputManager::GetScrollWheelDelta()
+{
+	return myWheelDelta;
 }
