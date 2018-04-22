@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="OpaqueBuffer.cpp" />
     <ClCompile Include="Utilities\ConstantBuffer.cpp" />
     <ClCompile Include="Utilities\Camera.cpp" />
     <ClCompile Include="Engine\DirectXFramework.cpp" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="Engine\ShaderTypes.h" />
+    <ClInclude Include="OpaqueBuffer.h" />
     <ClInclude Include="Utilities\ConstantBuffer.h" />
     <ClInclude Include="Utilities\Camera.h" />
     <ClInclude Include="Engine\DirectXFramework.h" />
