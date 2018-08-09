@@ -17,7 +17,7 @@ namespace Math
 	template<typename T>
 	T Min(T aValue0, T aValue1)
 	{
-		return Min(aValue0, aValue1);
+		return MIN(aValue0, aValue1);
 	}
 
 	template<typename T>
@@ -26,4 +26,8 @@ namespace Math
 		return CLAMP(aValueToClamp, aMin, aMax);
 	}
 
+	static float Lerp(float aLerpFrom, float aLerpTo, float aInterpolation)
+	{
+		return (aLerpFrom + aInterpolation * (aLerpTo - aLerpFrom));
+	}
 }

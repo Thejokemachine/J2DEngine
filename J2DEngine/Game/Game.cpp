@@ -4,31 +4,88 @@
 #include "Utilities/Time.h"
 #include "Utilities/DebugLog.h"
 
+#include "../Engine/OpaqueBuffer.h"
+
+#include "LayerSpeeds.h"
+
 void CGame::Init()
 {
-	mySprite.Load("Sprites/default.dds");
-	mySprite.SetPosition(400, 400);
-	mySprite.SetRotation(0.5f);
-	mySprite.SetScale(2.f);
+	myGameState = EGameState::Menu;
 
-	mySprite.SetShader(myShader);
+	myBackgroundSprite.Load("Sprites/background.dds");
+	myBackgroundSprite.SetPosition(800, 450);
+	myBackgroundSprite2.Load("Sprites/background.dds");
+	myBackgroundSprite2.SetPosition(1600 + 800, 450);
+
+	myBackgroundSpeed = LAYER_BACKGROUND;
+
+	myPlayer.Init();
+	myPipeSpawner.Init();
 }
 
 void CGame::Update(float aDT)
 {
 	CInputManager& inputManager = CInputManager::GetInstance();
 
-	mySprite.SetPosition(inputManager.GetCursorPosition());
-
-	if (inputManager.IsKeyDown(EKeyCode::R))
+	if (inputManager.IsKeyPressed(EKeyCode::Enter))
 	{
-		mySprite.Rotate(0.4f * aDT);
+		myGameState = EGameState::InGame;
 	}
 
-	mySprite.SetScale(2.f + 1.f * sin(CTime::GetInstance().GetTotalTime()));
+	switch (myGameState)
+	{
+	case CGame::EGameState::Menu:
+		break;
+	case CGame::EGameState::InGame:
+		HandleTilingBackgrounds(aDT);
+		myPlayer.Update(aDT);
+		myPipeSpawner.Update(aDT);
+		break;
+	case CGame::EGameState::Paused:
+		break;
+	case CGame::EGameState::GameOver:
+		break;
+	default:
+		break;
+	}
 }
 
 void CGame::Render()
 {
-	mySprite.Render();
+	myBackgroundSprite.Render();
+	myBackgroundSprite2.Render();
+
+	switch (myGameState)
+	{
+	case CGame::EGameState::Menu:
+		break;
+	case CGame::EGameState::InGame:
+		myPlayer.Render();
+		myPipeSpawner.Render();
+		break;
+	case CGame::EGameState::Paused:
+		myPlayer.Render();
+		myPipeSpawner.Render();
+		break;
+	case CGame::EGameState::GameOver:
+		myPipeSpawner.Render();
+		break;
+	default:
+		break;
+	}
+}
+
+void CGame::HandleTilingBackgrounds(float aDT)
+{
+	myBackgroundSprite.Move(myBackgroundSpeed * aDT, 0);
+	myBackgroundSprite2.Move(myBackgroundSpeed * aDT, 0);
+
+	if (myBackgroundSprite.GetPosition().x <= -myBackgroundSprite.GetDimensions().x / 2.f + 4.f)
+	{
+		myBackgroundSprite.SetPosition(1600 + 800, 450);
+	}
+	else if (myBackgroundSprite2.GetPosition().x <= -myBackgroundSprite2.GetDimensions().x / 2.f + 4.f) 
+	{
+		myBackgroundSprite2.SetPosition(1600 + 800, 450);
+	}
 }

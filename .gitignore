@@ -38,3 +38,7 @@
 J2DEngine/Launcher/x64/Debug/Launcher.tlog/Launcher.lastbuildstate
 *.lastbuildstate
 *.log
+
+J2DEngine/\.vs/Engine/v14/\.suo
+
+J2DEngine/\.vs/Engine/v15/\.suo

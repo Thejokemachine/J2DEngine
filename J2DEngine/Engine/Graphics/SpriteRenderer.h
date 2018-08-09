@@ -12,6 +12,8 @@ struct ID3D11VertexShader;
 struct ID3D11Buffer;
 struct ID3D11InputLayout;
 
+struct ID3D11BlendState;
+
 struct SSpriteRenderCommand;
 
 class CDirectXFramework;
@@ -34,6 +36,7 @@ private:
 	ID3D11VertexShader* myVertexShader;
 	ID3D11Buffer* myBuffer;
 	ID3D11InputLayout* myLayout;
+	ID3D11BlendState* myBlendState;
 
 	CDirectXFramework* myFramework;
 };

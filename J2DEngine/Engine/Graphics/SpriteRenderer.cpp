@@ -78,6 +78,21 @@ bool CSpriteRenderer::Init(CDirectXFramework * aFramework)
 	result = myFramework->GetDevice()->CreateInputLayout(layoutDesc, 7, vsData.data(), vsData.size(), &myLayout);
 	if (FAILED(result)) { return false; }
 
+	D3D11_BLEND_DESC blendDesc;
+	ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
+
+	blendDesc.RenderTarget[0].BlendEnable = true;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	result = myFramework->GetDevice()->CreateBlendState(&blendDesc, &myBlendState);
+	if (FAILED(result)) { return false; }
+
 	return true;
 }
 
@@ -88,6 +103,8 @@ void CSpriteRenderer::Render(std::vector<SSpriteRenderCommand>& aSpritesToRender
 	static UINT stride = sizeof(SSprite);
 	static UINT offset = 0;
 	static HRESULT result;
+
+	context->OMSetBlendState(myBlendState, 0, -1);
 
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	context->IASetInputLayout(myLayout);

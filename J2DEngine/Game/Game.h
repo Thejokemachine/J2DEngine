@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics/Sprite.h"
-#include "Engine/Shader.h"
+#include "Player.h"
+#include "PipeSpawner.h"
 
 class CGame
 {
@@ -14,7 +15,21 @@ public:
 
 private:
 
-	CSprite mySprite;
-	CShader myShader;
+	enum class EGameState
+	{
+		Menu,
+		InGame,
+		Paused,
+		GameOver
+	} myGameState;
+
+	CSprite myBackgroundSprite;
+	CSprite myBackgroundSprite2;
+	float myBackgroundSpeed;
+
+	CPlayer myPlayer;
+	CPipeSpawner myPipeSpawner;
+
+	void HandleTilingBackgrounds(float aDT);
 };
 
